@@ -60,7 +60,6 @@ class Observer implements ObserverInterface {
 
 		/** @var Mage_Sales_Model_Order_Shipment $shipment */
 		$shipment = $observer->getEvent()->getShipment();
-		// $shipment = $observer;
 
 		if($shipment->getData(__METHOD__)) {
 			return;
@@ -119,10 +118,7 @@ class Observer implements ObserverInterface {
 		);
 
 		$package = new Data\Package();
-		// $package->weight = '';
-		// $package->length = '';
-		// $package->width = '';
-		// $package->height = '';
+
 		$this->log("{$shipment->getIncrementId()} Package: " . json_encode($package));
 
 		$additionalData = new Data\Additional();
@@ -173,7 +169,6 @@ class Observer implements ObserverInterface {
 		$shipmentData->content = $itemName;
 		$shipmentData->from = $adrFrom;
 		$shipmentData->packages = array($package);
-		// $shipmentData->serviceId = null;
 		$shipmentData->to = $adrTo;
 		$this->log("{$shipment->getIncrementId()} Shipment: " . json_encode($shipmentData));
 
