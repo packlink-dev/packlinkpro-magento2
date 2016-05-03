@@ -22,74 +22,74 @@ use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 
 class InstallSchema implements InstallSchemaInterface {
-	public function install(SchemaSetupInterface $setup, ModuleContextInterface $context) {
-		$setup->startSetup();
-		$table = $setup->getConnection()->newTable(
-					$setup->getTable('packlink_magento2_shipment_status')
-				)->addColumn(
-					'id',
-					Table::TYPE_INTEGER,
-					null,
-					['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
-					'ID'
-				)->addColumn(
-					'shipment_id',
-					Table::TYPE_INTEGER,
-					null,
-					['nullable' => false, 'unsigned' => true],
-					'Shipment ID'
-				)->addForeignKey(
-					$setup->getFkName('packlink_magento2_shipment_status', 'shipment_id', 'sales_shipment', 'entity_id'),
-					'shipment_id',
-					$setup->getTable('sales_shipment'),
-					'entity_id',
-					Table::ACTION_CASCADE,
-					Table::ACTION_CASCADE
-				)->addColumn(
-					'shipment_status',
-					Table::TYPE_INTEGER,
-					null,
-					['nullable' => false, 'unsigned' => true, 'default' => 0,],
-					'Shipment Status'
-				)->addIndex(
-					$setup->getIdxName(
-						'packlink_magento2_shipment_status',
-						['shipment_status']
-					),
-					['shipment_status'],
-					['type' => AdapterInterface::INDEX_TYPE_INDEX]
-				)->addColumn(
-					'created',
-					Table::TYPE_DATETIME,
-					null,
-					['nullable' => false],
-					'Created At'
-				) ->addColumn(
-					'modified',
-					Table::TYPE_DATETIME,
-					null,
-					['nullable' => false],
-					'Modified At'
-				)->addColumn(
-					'error_message',
-					Table::TYPE_TEXT,
-					Table::MAX_TEXT_SIZE,
-					['nullable' => false],
-					'Error Message'
-				)->addColumn(
-					'reference',
-					Table::TYPE_TEXT,
-					Table::MAX_TEXT_SIZE,
-					['nullable' => false],
-					'Reference'
-				)->addColumn(
-					'tracking',
-					Table::TYPE_TEXT,
-					Table::MAX_TEXT_SIZE,
-					['nullable' => false],
-					'Tracking'
-				);
-		$setup->getConnection()->createTable($table);
-		$setup->endSetup();
-	}
+    public function install(SchemaSetupInterface $setup, ModuleContextInterface $context) {
+        $setup->startSetup();
+        $table = $setup->getConnection()->newTable(
+                                $setup->getTable('packlink_magento2_shipment_status')
+                        )->addColumn(
+                                'id',
+                                Table::TYPE_INTEGER,
+                                null,
+                                ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
+                                'ID'
+                        )->addColumn(
+                                'shipment_id',
+                                Table::TYPE_INTEGER,
+                                null,
+                                ['nullable' => false, 'unsigned' => true],
+                                'Shipment ID'
+                        )->addForeignKey(
+                                $setup->getFkName('packlink_magento2_shipment_status', 'shipment_id', 'sales_shipment', 'entity_id'),
+                                'shipment_id',
+                                $setup->getTable('sales_shipment'),
+                                'entity_id',
+                                Table::ACTION_CASCADE,
+                                Table::ACTION_CASCADE
+                        )->addColumn(
+                                'shipment_status',
+                                Table::TYPE_INTEGER,
+                                null,
+                                ['nullable' => false, 'unsigned' => true, 'default' => 0,],
+                                'Shipment Status'
+                        )->addIndex(
+                                $setup->getIdxName(
+                                        'packlink_magento2_shipment_status',
+                                        ['shipment_status']
+                                ),
+                                ['shipment_status'],
+                                ['type' => AdapterInterface::INDEX_TYPE_INDEX]
+                        )->addColumn(
+                                'created',
+                                Table::TYPE_DATETIME,
+                                null,
+                                ['nullable' => false],
+                                'Created At'
+                        ) ->addColumn(
+                                'modified',
+                                Table::TYPE_DATETIME,
+                                null,
+                                ['nullable' => false],
+                                'Modified At'
+                        )->addColumn(
+                                'error_message',
+                                Table::TYPE_TEXT,
+                                Table::MAX_TEXT_SIZE,
+                                ['nullable' => false],
+                                'Error Message'
+                        )->addColumn(
+                                'reference',
+                                Table::TYPE_TEXT,
+                                Table::MAX_TEXT_SIZE,
+                                ['nullable' => false],
+                                'Reference'
+                        )->addColumn(
+                                'tracking',
+                                Table::TYPE_TEXT,
+                                Table::MAX_TEXT_SIZE,
+                                ['nullable' => false],
+                                'Tracking'
+                        );
+        $setup->getConnection()->createTable($table);
+        $setup->endSetup();
+    }
 }

@@ -20,45 +20,45 @@ use \Magento\Framework\App\ObjectManager;
 use \Magento\Store\Model\ScopeInterface;
 
 final class Configuration {
-	/**
-	* @return string
-	*/
-	public function getLogFileName() {
-		return 'packlink.log';
-	}
+    /**
+    * @return string
+    */
+    public function getLogFileName() {
+        return 'packlink.log';
+    }
 
-	/**
-	* @return string
-	*/
-	public function getApiUrl() {
-		return $this->getStoreConfigValue('packlink_magento2/general/service_url');
-	}
+    /**
+    * @return string
+    */
+    public function getApiUrl() {
+        return $this->getStoreConfigValue('packlink_magento2/general/service_url');
+    }
 
-	/**
-	* @return string
-	*/
-	public function getAccessToken() {
-		return $this->getStoreConfigValue('packlink_magento2/general/api_key');
-	}
+    /**
+    * @return string
+    */
+    public function getAccessToken() {
+        return $this->getStoreConfigValue('packlink_magento2/general/api_key');
+    }
 
-	/**
-	* @return array
-	*/
-	public function getSender() {
-		return $this->getStoreConfigValue('packlink_magento2/sender');
-	}
+    /**
+    * @return array
+    */
+    public function getSender() {
+        return $this->getStoreConfigValue('packlink_magento2/sender');
+    }
 
-	/**
-	* @return bool
-	*/
-	public function isEnabled() {
-		return $this->getStoreConfigValue('packlink_magento2/general/enabled');
-	}
+    /**
+    * @return bool
+    */
+    public function isEnabled() {
+        return $this->getStoreConfigValue('packlink_magento2/general/enabled');
+    }
 
-	protected function getStoreConfigValue($path) {
-		$object_manager = ObjectManager::getInstance();
-		$helper = $object_manager->get('\Packlink\Magento2\Helper\Data');
-		$scope = ScopeInterface::SCOPE_STORE;
-		return $helper->_scopeConfig->getValue($path, $scope);
-	}
+    protected function getStoreConfigValue($path) {
+        $object_manager = ObjectManager::getInstance();
+        $helper = $object_manager->get('\Packlink\Magento2\Helper\Data');
+        $scope = ScopeInterface::SCOPE_STORE;
+        return $helper->_scopeConfig->getValue($path, $scope);
+    }
 }
