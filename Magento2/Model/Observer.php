@@ -15,12 +15,18 @@
  * limitations under the License.
  */
 namespace Packlink\Magento2\Model;
+
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\Event\Observer as FrameworkObserver;
+use Magento\Framework\Message\ManagerInterface;
+use Magento\Framework\App\ObjectManager;
+use Magento\Framework\AppInterface;
+use Zend\Log\Logger;
+use Zend\Log\Writer\Stream;
 
 require_once(BP . '/lib/Packlink/Shipment.php');
 require_once(BP . '/lib/Packlink/Postal.php');
 require_once(BP . '/lib/Packlink/Data/Shipment.php');
-
 
 use Packlink\Data;
 use Packlink\Postal;
@@ -30,24 +36,24 @@ class Observer implements ObserverInterface {
 	/** @var Packlink\Magento2\Model\Configuration */
 	private $cfg;
 	private $messageManager;
-	
+
 	/**
 	* Packlink_Magento1_Model_Observer constructor.
 	*/
-	public function __construct (\Magento\Framework\Message\ManagerInterface $messageManager) {
-		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	public function __construct (ManagerInterface $messageManager) {
+		$objectManager = ObjectManager::getInstance();
 		$this->cfg = $objectManager->get('Packlink\Magento2\Model\Configuration');
 		$this->messageManager = $messageManager;
 	}
 
-	private function log($msg, $level = \Zend\Log\Logger::DEBUG) {
-		$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/' . $this->cfg->getLogFileName());
-		$logger = new \Zend\Log\Logger();
+	private function log($msg, $level = Logger::DEBUG) {
+		$writer = new Stream(BP . '/var/log/' . $this->cfg->getLogFileName());
+		$logger = new Logger();
 		$logger->addWriter($writer);
 		$logger->debug($msg);
 	}
-		
-	public function execute(\Magento\Framework\Event\Observer $observer) {
+
+	public function execute(FrameworkObserver $observer) {
 		if(!$this->cfg->isEnabled()) {
 			return;
 		}
@@ -60,18 +66,18 @@ class Observer implements ObserverInterface {
 			return;
 		}
 		$shipment->setData(__METHOD__, true);
-		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-		
+		$objectManager = ObjectManager::getInstance();
+
 		$this->log("trying to send shipment {$shipment->getIncrementId()}");
 
 		$apiUrl = $this->cfg->getApiUrl();
 		$accessToken = $this->cfg->getAccessToken();
 		$sender = $this->cfg->getSender();
-		
+
 		$statusModel = $objectManager->get('Packlink\Magento2\Model\Shipment\Status');
-		
+
 		$address = $shipment->getShippingAddress();
-		
+
 		$regionId = $sender['city'];
 		if(($sender['region_id'] !== '') && is_numeric($sender['region_id'])) {
 			/** @var Mage_Directory_Model_Region $region */
@@ -160,7 +166,7 @@ class Observer implements ObserverInterface {
 
 
 		$shipmentData = new Data\Shipment();
-		$shipmentData->source = 'Magento (' . \Magento\Framework\AppInterface::VERSION . ')';
+		$shipmentData->source = 'Magento (' . AppInterface::VERSION . ')';
 		$shipmentData->insurance = new Data\Insurance();
 		$shipmentData->additionalData = $additionalData;
 		$shipmentData->contentValue = $total;

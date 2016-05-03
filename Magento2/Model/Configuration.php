@@ -16,6 +16,9 @@
  */
 namespace Packlink\Magento2\Model;
 
+use \Magento\Framework\App\ObjectManager;
+use \Magento\Store\Model\ScopeInterface;
+
 final class Configuration {
 	/**
 	* @return string
@@ -51,11 +54,11 @@ final class Configuration {
 	public function isEnabled() {
 		return $this->getStoreConfigValue('packlink_magento2/general/enabled');
 	}
-	
+
 	protected function getStoreConfigValue($path) {
-		$object_manager = \Magento\Framework\App\ObjectManager::getInstance();
+		$object_manager = ObjectManager::getInstance();
 		$helper = $object_manager->get('\Packlink\Magento2\Helper\Data');
-		$scope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+		$scope = ScopeInterface::SCOPE_STORE;
 		return $helper->_scopeConfig->getValue($path, $scope);
 	}
 }

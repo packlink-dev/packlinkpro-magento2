@@ -19,12 +19,14 @@
 /** @noinspection LongInheritanceChainInspection */
 namespace Packlink\Magento2\Model\Resource\Shipment\Status;
 
-class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection {
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+
+class Collection extends AbstractCollection {
 	/**
 	* @var string
 	*/
 	protected $_idFieldName = 'id';
-	
+
 	/**
 	* Define resource model
 	* @return void

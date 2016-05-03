@@ -33,7 +33,10 @@
  */
 namespace Packlink\Magento2\Model\Shipment;
 
-class Status extends \Magento\Framework\Model\AbstractModel {
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\App\ObjectManager;
+
+class Status extends AbstractModel {
 
 	public function _construct() {
 		parent::_construct();
@@ -60,9 +63,9 @@ class Status extends \Magento\Framework\Model\AbstractModel {
 	*/
 	public function setStatus($shipmentId, $status, $message = '', $reference = '', $tracking = '') {
 		/** @var Packlink_Magento1_Model_Shipment_Status $obj */
-		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$objectManager = ObjectManager::getInstance();
 		$obj = $objectManager->get('Packlink\Magento2\Model\Shipment\Status')->load($shipmentId);
-		
+
 		if(!$obj || $obj->isObjectNew()) {
 			$obj->setShipmentId($shipmentId);
 			$obj->setCreated(date('c'));

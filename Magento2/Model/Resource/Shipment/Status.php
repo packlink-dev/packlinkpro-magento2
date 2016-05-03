@@ -17,7 +17,9 @@
  */
 namespace Packlink\Magento2\Model\Resource\Shipment;
 
-class Status extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb {
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+
+class Status extends AbstractDb {
 	protected function _construct() {
 		$this->_init('packlink_magento2_shipment_status', 'id');
 	}
