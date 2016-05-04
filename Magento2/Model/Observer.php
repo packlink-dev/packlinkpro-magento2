@@ -38,6 +38,8 @@ class Observer implements ObserverInterface {
     private $cfg;
     private $messageManager;
     private $objectManager;
+    private $apiUrl;
+    private $accessToken;
 
     /**
     * Packlink_Magento1_Model_Observer constructor.
