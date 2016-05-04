@@ -1,34 +1,34 @@
 {
-	"name": "Packlink/Magento2",
-	"description": "Packlink Magento2",
-	"repositories": [
-		{
-			"type": "package",
-			"package": {
-				"name": "packlink-api-php-sdk",
-				"version": "1.0",
-				"source": {
-					"url": "https://github.com/packlink-dev/api-php-sdk.git",
-					"type": "git",
-					"reference": "master"
-				},
-				"package-path": "lib/"
-			}
-		}
-	],
-	"require": {
-		"php": "~5.5.0|~5.6.0|~7.0.0",
-		"magento/magento-composer-installer": "*"
-	},
-	"type": "magento2-module",
-	"version": "0.1.0",
-	"license": [
-		"OSL-3.0"
-	],
-	"autoload": {
-		"files": [ "registration.php" ],
-		"psr-4": {
-			"Packlink\\Magento2\\": ""
-		}
-	}
+    "name": "Packlink/Magento2",
+    "description": "Packlink Magento2",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "packlink-api-php-sdk",
+                "version": "1.0",
+                "source": {
+                    "url": "https://github.com/packlink-dev/api-php-sdk.git",
+                    "type": "git",
+                    "reference": "master"
+                },
+                "package-path": "lib/"
+            }
+        }
+    ],
+    "require": {
+        "php": "~5.5.0|~5.6.0|~7.0.0",
+        "magento/magento-composer-installer": "*"
+    },
+    "type": "magento2-module",
+    "version": "0.1.0",
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Packlink\\Magento2\\": ""
+        }
+    }
 }

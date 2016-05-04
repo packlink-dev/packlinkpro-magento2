@@ -33,56 +33,59 @@
  */
 namespace Packlink\Magento2\Model\Shipment;
 
-class Status extends \Magento\Framework\Model\AbstractModel {
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\App\ObjectManager;
 
-	public function _construct() {
-		parent::_construct();
-		$this->_init('Packlink\Magento2\Model\Resource\Shipment\Status');
-	}
+class Status extends AbstractModel {
 
-	/** @noinspection MoreThanThreeArgumentsInspection */
-	/**
-	* @param int $shipmentId
-	* @param string $reference
-	* @param int $status
-	*/
-	public function markAsProcessed($shipmentId, $status, $reference) {
-		$this->setStatus($shipmentId, $status, null, $reference);
-	}
+    public function _construct() {
+        parent::_construct();
+        $this->_init('Packlink\Magento2\Model\Resource\Shipment\Status');
+    }
 
-	/** @noinspection MoreThanThreeArgumentsInspection */
-	/**
-	* @param int $shipmentId
-	* @param int $status
-	* @param string $message
-	* @param string $reference
-	* @param string $tracking
-	*/
-	public function setStatus($shipmentId, $status, $message = '', $reference = '', $tracking = '') {
-		/** @var Packlink_Magento1_Model_Shipment_Status $obj */
-		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-		$obj = $objectManager->get('Packlink\Magento2\Model\Shipment\Status')->load($shipmentId);
-		
-		if(!$obj || $obj->isObjectNew()) {
-			$obj->setShipmentId($shipmentId);
-			$obj->setCreated(date('c'));
-		} else {
-			$obj->setModified(date('c'));
-		}
+    /** @noinspection MoreThanThreeArgumentsInspection */
+    /**
+    * @param int $shipmentId
+    * @param string $reference
+    * @param int $status
+    */
+    public function markAsProcessed($shipmentId, $status, $reference) {
+        $this->setStatus($shipmentId, $status, null, $reference);
+    }
 
-		$obj->setShipmentStatus($status);
-		$obj->setErrorMessage($message);
-		$obj->setReference($reference);
-		$obj->setTracking($tracking);
-		$obj->save();
-	}
+    /** @noinspection MoreThanThreeArgumentsInspection */
+    /**
+    * @param int $shipmentId
+    * @param int $status
+    * @param string $message
+    * @param string $reference
+    * @param string $tracking
+    */
+    public function setStatus($shipmentId, $status, $message = '', $reference = '', $tracking = '') {
+        /** @var Packlink_Magento1_Model_Shipment_Status $obj */
+        $objectManager = ObjectManager::getInstance();
+        $obj = $objectManager->get('Packlink\Magento2\Model\Shipment\Status')->load($shipmentId);
 
-	/**
-	* @param int $shipmentId
-	* @param string $error
-	* @param string $status
-	*/
-	public function markAsError($shipmentId, $status, $error) {
-		$this->setStatus($shipmentId, $status, $error);
-	}
+        if(!$obj || $obj->isObjectNew()) {
+                $obj->setShipmentId($shipmentId);
+                $obj->setCreated(date('c'));
+        } else {
+                $obj->setModified(date('c'));
+        }
+
+        $obj->setShipmentStatus($status);
+        $obj->setErrorMessage($message);
+        $obj->setReference($reference);
+        $obj->setTracking($tracking);
+        $obj->save();
+    }
+
+    /**
+    * @param int $shipmentId
+    * @param string $error
+    * @param string $status
+    */
+    public function markAsError($shipmentId, $status, $error) {
+        $this->setStatus($shipmentId, $status, $error);
+    }
 }
