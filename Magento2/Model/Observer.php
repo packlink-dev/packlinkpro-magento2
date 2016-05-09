@@ -206,7 +206,7 @@ class Observer implements ObserverInterface {
         return $adr;
     }
 
-    private function getAddressFromObject(Mage_Sales_Model_Order_Shipment_Item $addressData)
+    private function getAddressFromObject($addressData)
     {
         $adr = new Data\Address();
         $adr->country = $addressData->getCountryId();
