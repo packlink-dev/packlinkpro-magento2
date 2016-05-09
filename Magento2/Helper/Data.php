@@ -16,14 +16,19 @@
  */
 namespace Packlink\Magento2\Helper;
 
-class Data extends \Magento\Framework\App\Helper\AbstractHelper {
-	public $_scopeConfig;
-	public function __construct(
-		\Magento\Framework\App\Helper\Context $context,
-		\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-	) {
-		parent::__construct($context);
-		$this->_scopeConfig = $scopeConfig;
-	}
-}
+use \Magento\Framework\App\Helper\AbstractHelper;
+use \Magento\Framework\App\Helper\Context;
+use \Magento\Framework\App\Config\ScopeConfigInterface;
 
+class Data extends AbstractHelper {
+
+    public $_scopeConfig;
+
+    public function __construct(
+        Context $context,
+        ScopeConfigInterface $scopeConfig
+    ) {
+        parent::__construct($context);
+        $this->_scopeConfig = $scopeConfig;
+    }
+}

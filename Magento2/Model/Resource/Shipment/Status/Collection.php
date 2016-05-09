@@ -19,17 +19,19 @@
 /** @noinspection LongInheritanceChainInspection */
 namespace Packlink\Magento2\Model\Resource\Shipment\Status;
 
-class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection {
-	/**
-	* @var string
-	*/
-	protected $_idFieldName = 'id';
-	
-	/**
-	* Define resource model
-	* @return void
-	*/
-	protected function _construct() {
-		$this->_init('Packlink\Magento2\Model\Shipment\Status', 'Packlink\Magento2\Model\Resource\Shipment\Status');
-	}
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+
+class Collection extends AbstractCollection {
+    /**
+    * @var string
+    */
+    protected $_idFieldName = 'id';
+
+    /**
+    * Define resource model
+    * @return void
+    */
+    protected function _construct() {
+        $this->_init('Packlink\Magento2\Model\Shipment\Status', 'Packlink\Magento2\Model\Resource\Shipment\Status');
+    }
 }
