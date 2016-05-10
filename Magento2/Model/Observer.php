@@ -17,9 +17,9 @@
 namespace Packlink\Magento2\Model;
 use Magento\Framework\Event\ObserverInterface;
 
-require_once(BP . '/lib/Packlink/Shipment.php');
-require_once(BP . '/lib/Packlink/Postal.php');
-require_once(BP . '/lib/Packlink/Data/Shipment.php');
+require_once(__DIR__  . '/../lib/Packlink/Shipment.php');
+require_once(__DIR__  . '/../lib/Packlink/Postal.php');
+require_once(__DIR__  . '/../lib/Packlink/Data/Shipment.php');
 
 
 use Packlink\Data;
@@ -54,7 +54,6 @@ class Observer implements ObserverInterface {
 
 		/** @var Mage_Sales_Model_Order_Shipment $shipment */
 		$shipment = $observer->getEvent()->getShipment();
-		// $shipment = $observer;
 
 		if($shipment->getData(__METHOD__)) {
 			return;
@@ -113,10 +112,6 @@ class Observer implements ObserverInterface {
 		);
 
 		$package = new Data\Package();
-		// $package->weight = '';
-		// $package->length = '';
-		// $package->width = '';
-		// $package->height = '';
 		$this->log("{$shipment->getIncrementId()} Package: " . json_encode($package));
 
 		$additionalData = new Data\Additional();
@@ -177,8 +172,6 @@ class Observer implements ObserverInterface {
 			$shipmentData
 		);
 
-		// never let error "escape" so we won't prevent shipping creation.
-		// XXX do we really want to go ahead and create shipping if we where unable to send it?
 		try {
 			$reference = $packlinkShipment->send();
 
