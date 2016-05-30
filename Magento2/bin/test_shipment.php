@@ -28,5 +28,6 @@ $state->setAreaCode('adminhtml');
 $shipmentId = 6;
 
 $shipment = $objectManager->get('Magento\Sales\Model\Order\Shipment')->load($shipmentId);
-
-$objectManager->get('Packlink\Magento2\Model\Observer')->sendOrderToPacklink($shipment);
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+$manager = $om->get('Magento\Framework\Event\ManagerInterface');
+$manager->dispatch('sales_order_shipment_save_after', array('shipment' => $shipment));

@@ -227,7 +227,7 @@ class Observer implements ObserverInterface {
     private function getDataShipment($additionalData, $total, $itemName, $packages, $adrFrom, $adrTo)
     {
         $shipmentData = new Data\Shipment();
-        $shipmentData->source = 'Magento (' . AppInterface::VERSION . ')';
+        $shipmentData->source = 'module_magento';
         $shipmentData->insurance = new Data\Insurance();
         $shipmentData->additionalData = $additionalData;
         $shipmentData->contentValue = $total;
